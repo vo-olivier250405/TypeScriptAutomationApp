@@ -5,8 +5,11 @@
   "devDependencies": {
     "@types/bun": "latest"
   },
+  "dependencies": {
+    "@google-cloud/local-auth": "2.1.0",
+    "googleapis": "105"
+  },
   "peerDependencies": {
     "typescript": "^5.0.0"
   }
-
 }
