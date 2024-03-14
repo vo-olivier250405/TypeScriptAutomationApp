@@ -48,7 +48,7 @@ async function listMessages() {
     );
     console.log(
       headers?.value +
-        ` | https://mail.google.com/mail/u/0/#inbox/${message.id}
+        ` | https://mail.google.com/mail/u/1/#inbox/${message.id}
     `
     );
   });
@@ -56,14 +56,23 @@ async function listMessages() {
 
 async function getFilteredMessages(filterBy: string) {
   const messagesData = await getAllMessages();
+  const mails: { object: string; link: string }[] = [];
 
-  const unreadMsg = messagesData!.filter((data) =>
+  messagesData?.forEach((data) => {
+    if (data?.data.labelIds?.includes(filterBy)) {
+      const header = data?.data.payload?.headers?.find(
+        (header) => header.name === "Subject"
+      );
+      if (header) {
+        mails.push({ object: header.value!, link: data?.data.id! });
+      }
+    }
+  });
+
+  console.log(mails);
+  return messagesData?.filter((data) =>
     data?.data.labelIds?.includes(filterBy)
   );
-  console.log(unreadMsg.length);
-  return unreadMsg;
 }
 
-async function renderMails(messages: any[]) {}
-
-getFilteredMessages("UNREAD");
+await getFilteredMessages("UNREAD");
