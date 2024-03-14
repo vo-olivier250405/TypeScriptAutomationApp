@@ -1,5 +1,28 @@
 import { auth, google } from "./lib/auth";
 
+async function getAllMessages() {
+  const gmail = google.gmail({ version: "v1", auth });
+  const res = await gmail.users.messages.list({ userId: "me" });
+  const messages = res.data.messages;
+
+  if (!messages || messages.length === 0) {
+    console.log("No message found");
+    return;
+  }
+
+  const mesagesData = await Promise.all(
+    messages.map(async (message) => {
+      if (!message.id) return;
+      return await gmail.users.messages.get({
+        userId: "me",
+        id: message.id,
+      });
+    })
+  );
+
+  return mesagesData;
+}
+
 async function listMessages() {
   const gmail = google.gmail({ version: "v1", auth });
   const res = await gmail.users.messages.list({ userId: "me" });
@@ -31,4 +54,16 @@ async function listMessages() {
   });
 }
 
-listMessages();
+async function getFilteredMessages(filterBy: string) {
+  const messagesData = await getAllMessages();
+
+  const unreadMsg = messagesData!.filter((data) =>
+    data?.data.labelIds?.includes(filterBy)
+  );
+  console.log(unreadMsg.length);
+  return unreadMsg;
+}
+
+async function renderMails(messages: any[]) {}
+
+getFilteredMessages("UNREAD");
