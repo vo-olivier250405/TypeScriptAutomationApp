@@ -33,11 +33,9 @@ export async function getFilteredMessages(filterBy: string) {
     }
   });
 
-  console.log("Unread messages:\n");
-  console.log(mails);
-  return messagesData?.filter((data) =>
-    data?.data.labelIds?.includes(filterBy)
-  );
+  // console.log("Unread messages: " + mails.length);
+  // console.log(mails);
+  return mails;
 }
 
 function formatMessages(mails: { object: string; link: string }[], data: any) {
@@ -52,3 +50,5 @@ function formatMessages(mails: { object: string; link: string }[], data: any) {
   }
   return mails;
 }
+
+export function menu() {}
