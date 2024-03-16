@@ -1,10 +1,11 @@
 import { getFilteredMessages } from "./lib/commands";
 import { menuSelect, cs } from "./lib/helper";
+import type { MenuItem } from "./types";
 
 console.log(cs("Searching messages...", "green"));
 const mails = await getFilteredMessages("UNREAD");
 
-let options: { name: string; function: () => void }[] = [];
+let options: MenuItem[] = [];
 
 mails.forEach((mail) => {
   options.push({

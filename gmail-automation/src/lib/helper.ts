@@ -1,5 +1,5 @@
+import type { MenuItem } from "@/types";
 import * as readline from "readline";
-type MenuItem = { name: string; function: () => void };
 
 export function menuSelect(options: MenuItem[], caption: string | null = null) {
   let currentChoice: number = 0;
