@@ -12,5 +12,5 @@ const options: MenuItem[] = mails.map((mail) => ({
 }));
 
 mails.length > 0
-  ? menuSelect(options, `   Unread Messages (${mails.length})`)
+  ? menuSelect(options, `   Unread Message(s): ${mails.length}`)
   : console.log(cs("No unread messages.", "yellow"));
