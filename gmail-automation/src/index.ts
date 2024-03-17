@@ -1,20 +1,15 @@
 import { getFilteredMessages } from "./lib/commands";
-import { menuSelect, cs } from "./lib/helper";
+import { menuSelect, cs, openDefaultBrowser } from "./lib/helper";
 import type { MenuItem } from "./types";
 
 console.log(cs("Searching messages...", "green"));
+
 const mails = await getFilteredMessages("UNREAD");
 
-let options: MenuItem[] = [];
-
-mails.forEach((mail) => {
-  options.push({
-    name: mail.object,
-    function: () => {
-      console.log(`\n   Link: ${cs(mail.link, "green")}`);
-    },
-  });
-});
+const options: MenuItem[] = mails.map((mail) => ({
+  name: mail.object,
+  function: () => openDefaultBrowser(mail.link),
+}));
 
 mails.length > 0
   ? menuSelect(options, `   Unread Messages (${mails.length})`)
