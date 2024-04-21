@@ -1,6 +1,6 @@
 import type { MenuItem } from "@/types";
 import * as readline from "readline";
-import { exec } from "child_process";
+import open from "open";
 
 export function menuSelect(options: MenuItem[], caption: string | null = null) {
   let currentChoice: number = 0;
@@ -52,6 +52,6 @@ export function cs(str: string, color: keyof typeof ansiCodes) {
   return `\x1b[${ansiCodes[color]}m${str}\x1b[0m`;
 }
 
-export function openDefaultBrowser(link: string) {
-  exec(`open ${link}`);
+export async function openDefaultBrowser(link: string) {
+  await open(link);
 }

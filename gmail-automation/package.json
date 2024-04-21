@@ -1,6 +1,9 @@
 {
   "name": "newproject",
   "module": "src/index.ts",
+  "scripts": {
+   "dev": "bun run ."
+  },
   "type": "module",
   "devDependencies": {
     "@types/bun": "latest"
