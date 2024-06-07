@@ -1,4 +1,4 @@
-# newproject
+# TypeScriptAutomationApp
 
 To install dependencies:
 
